@@ -6,10 +6,8 @@ COPY hello.go .
 
 RUN go build -ldflags "-s -w" hello.go
 
-#RUN go build hello.go
-
 ###### Multi stage
-FROM busybox
+FROM busybox:1.27
 COPY --from=builder /go/src/app/hello /app/
 
 CMD [ "/app/hello" ]
