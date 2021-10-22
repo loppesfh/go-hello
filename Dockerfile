@@ -4,11 +4,12 @@ WORKDIR /go/src/app
 
 COPY hello.go .
 
-RUN go build hello.go
+RUN go build -ldflags "-s -w" hello.go
+
+#RUN go build hello.go
 
 ###### Multi stage
-FROM alpine:3.5
-RUN apk add --no-cache
+FROM busybox
 COPY --from=builder /go/src/app/hello /app/
 
 CMD [ "/app/hello" ]
